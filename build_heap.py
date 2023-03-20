@@ -45,7 +45,7 @@ def main():
     elif (re.sub("[\r\n]", "", mode) == "F") : 
         number_test = input()
         number_test = re.sub("[\r\n]", "", number_test)
-        file_name = "test/" + number_test
+        file_name = "tests/" + number_test
         with open(file_name, 'r') as f:
             lines = f.readlines()
             data = [int(num) for num in lines[1].split()]      
