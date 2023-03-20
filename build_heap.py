@@ -2,37 +2,25 @@
 import re
 def build_heap(data):
     swaps = []
-    firstSwapIndex = len(data) // 2 - 1
-    swaps = swaping(firstSwapIndex, swaps, data)
+    n = len(data)
+    for i in range(n // 2 - 1, -1, -1):
+        swaps = swaping(i, swaps, data)
     return swaps
 
 def swaping(nowSwapIndex, swaps, data):
-
-    
+    n = len(data)
     swapIndex1 = nowSwapIndex * 2 + 1
     swapIndex2 = nowSwapIndex * 2 + 2
-    if swapIndex1 == len(data) - 1:
-        if data[nowSwapIndex] > data[swapIndex1]:
-            data[nowSwapIndex], data[swapIndex1] = data[swapIndex1], data[nowSwapIndex]
-            swaps.append([nowSwapIndex, swapIndex1])
-            if len(data) // 2 - 1 >= swapIndex1:
-                swaps = swaping(swapIndex1, swaps, data)
-    elif data[swapIndex1] > data[swapIndex2]:
-        if data[nowSwapIndex] > data[swapIndex2]:
-            data[nowSwapIndex], data[swapIndex2] = data[swapIndex2], data[nowSwapIndex]
-            swaps.append([nowSwapIndex, swapIndex2])
-            if len(data) // 2 - 1 >= swapIndex1:
-                swaps = swaping(swapIndex2, swaps, data)
-    else:
-        if data[nowSwapIndex] > data[swapIndex1]:
-            data[nowSwapIndex], data[swapIndex1] = data[swapIndex1], data[nowSwapIndex]
-            swaps.append([nowSwapIndex, swapIndex1])
-            if len(data) // 2 - 1 >= swapIndex1:
-                swaps = swaping(swapIndex1, swaps, data)
-    nowSwapIndex = nowSwapIndex - 1
-    if nowSwapIndex == -1:
+    if swapIndex1 >= n:
         return swaps
-    swaps = swaping(nowSwapIndex, swaps, data)
+    if swapIndex2 >= n or data[swapIndex1] < data[swapIndex2]:
+        minSwapIndex = swapIndex1
+    else:
+        minSwapIndex = swapIndex2
+    if data[nowSwapIndex] > data[minSwapIndex]:
+        data[nowSwapIndex], data[minSwapIndex] = data[minSwapIndex], data[nowSwapIndex]
+        swaps.append((nowSwapIndex, minSwapIndex))
+        swaps = swaping(minSwapIndex, swaps, data)
     return swaps
 
 def main():
