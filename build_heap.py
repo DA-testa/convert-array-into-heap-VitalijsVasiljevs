@@ -43,6 +43,7 @@ def main():
         assert len(data) == n
                                
     elif (re.sub("[\r\n]", "", mode) == "F") : 
+      
         number_test = input()
         number_test = re.sub("[\r\n]", "", number_test)
         file_name = "tests/" + number_test
