@@ -1,4 +1,4 @@
-
+import re
 def build_heap(data):
     swaps = []
     firstSwapIndex = len(data) // 2 - 1
@@ -35,7 +35,7 @@ def swaping(nowSwapIndex, swaps, data):
     return swaps
 
 def main():
-        mode = input()  
+    mode = input()  
     if ((re.sub("[\r\n]", "", mode) == "I")) :
         n = input()
         n = int(re.sub("[\r\n]", "", n))
