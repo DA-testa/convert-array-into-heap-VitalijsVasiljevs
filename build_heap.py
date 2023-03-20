@@ -1,41 +1,60 @@
-# python3
-
 
 def build_heap(data):
     swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
-
-
+    firstSwapIndex = len(data) // 2 - 1
+    swaps = swaping(firstSwapIndex, swaps, data)
     return swaps
 
+def swaping(nowSwapIndex, swaps, data):
+
+    
+    swapIndex1 = nowSwapIndex * 2 + 1
+    swapIndex2 = nowSwapIndex * 2 + 2
+    if swapIndex1 == len(data) - 1:
+        if data[nowSwapIndex] > data[swapIndex1]:
+            data[nowSwapIndex], data[swapIndex1] = data[swapIndex1], data[nowSwapIndex]
+            swaps.append([nowSwapIndex, swapIndex1])
+            if len(data) // 2 - 1 >= swapIndex1:
+                swaps = swaping(swapIndex1, swaps, data)
+    elif data[swapIndex1] > data[swapIndex2]:
+        if data[nowSwapIndex] > data[swapIndex2]:
+            data[nowSwapIndex], data[swapIndex2] = data[swapIndex2], data[nowSwapIndex]
+            swaps.append([nowSwapIndex, swapIndex2])
+            if len(data) // 2 - 1 >= swapIndex1:
+                swaps = swaping(swapIndex2, swaps, data)
+    else:
+        if data[nowSwapIndex] > data[swapIndex1]:
+            data[nowSwapIndex], data[swapIndex1] = data[swapIndex1], data[nowSwapIndex]
+            swaps.append([nowSwapIndex, swapIndex1])
+            if len(data) // 2 - 1 >= swapIndex1:
+                swaps = swaping(swapIndex1, swaps, data)
+    nowSwapIndex = nowSwapIndex - 1
+    if nowSwapIndex == -1:
+        return swaps
+    swaps = swaping(nowSwapIndex, swaps, data)
+    return swaps
 
 def main():
-    
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
-
-
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
-
-    # checks if lenght of data is the same as the said lenght
-    assert len(data) == n
-
-    # calls function to assess the data 
-    # and give back all swaps
+        mode = input()  
+    if ((re.sub("[\r\n]", "", mode) == "I")) :
+        n = input()
+        n = int(re.sub("[\r\n]", "", n))
+        data = list(map(int, input().split()))
+        assert len(data) == n
+                               
+    elif (re.sub("[\r\n]", "", mode) == "F") : 
+        number_test = input()
+        number_test = re.sub("[\r\n]", "", number_test)
+        file_name = "test/" + number_test
+        with open(file_name, 'r') as f:
+            lines = f.readlines()
+            data = [int(num) for num in lines[1].split()]      
+    pass
     swaps = build_heap(data)
-
-    # TODO: output how many swaps were made, 
-    # this number should be less than 4n (less than 4*len(data))
-
-
-    # output all swaps
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
+
 
 
 if __name__ == "__main__":
